@@ -1,10 +1,11 @@
 package com.devinhouse.restapi.services;
 
+import com.devinhouse.restapi.dtos.quizDtos.QuizCompletoDto;
 import com.devinhouse.restapi.dtos.quizDtos.QuizRequest;
-import com.devinhouse.restapi.dtos.quizDtos.QuizResponse;
 import com.devinhouse.restapi.mappers.QuizMapper;
 import com.devinhouse.restapi.models.Quiz;
 import com.devinhouse.restapi.repositories.QuizRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,18 +18,34 @@ public class QuizService {
     @Autowired
     private QuizMapper mapper;
 
-    public List<QuizResponse> getAllQuiz() {
+    public List<QuizCompletoDto> getAllQuiz() {
         return mapper.map(repository.findAll());
     }
 
-    public QuizResponse getQuizById(Long id) {
+    public QuizCompletoDto getQuizById(Long id) {
         Quiz quiz = repository.getReferenceById(id);
 
         return mapper.map(quiz);
     }
 
-    public QuizResponse criarQuiz(QuizRequest request) {
+    public QuizCompletoDto criarQuiz(QuizRequest request) {
         Quiz quiz = repository.save(mapper.map(request));
+
+        return mapper.map(quiz);
+    }
+
+    public QuizCompletoDto atualizarQuiz(QuizCompletoDto request) {
+        Quiz quiz = repository.findById(request.getId())
+                .orElseThrow(EntityNotFoundException::new);
+
+        if (request.getNome() != null && request.getNome().length() > 0) {
+            quiz.setNome(request.getNome());
+        }
+        if (request.getDescricao() != null && request.getDescricao().length() > 0) {
+            quiz.setDescricao(request.getDescricao());
+        }
+
+        repository.save(quiz);
 
         return mapper.map(quiz);
     }

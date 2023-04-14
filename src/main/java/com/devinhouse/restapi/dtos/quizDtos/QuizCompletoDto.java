@@ -1,6 +1,6 @@
 package com.devinhouse.restapi.dtos.quizDtos;
 
-public class QuizResponse {
+public class QuizCompletoDto {
     private Long id;
     private String nome;
     private String descricao;

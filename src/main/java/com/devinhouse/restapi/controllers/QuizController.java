@@ -1,7 +1,7 @@
 package com.devinhouse.restapi.controllers;
 
+import com.devinhouse.restapi.dtos.quizDtos.QuizCompletoDto;
 import com.devinhouse.restapi.dtos.quizDtos.QuizRequest;
-import com.devinhouse.restapi.dtos.quizDtos.QuizResponse;
 import com.devinhouse.restapi.services.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,21 +18,21 @@ public class QuizController {
     QuizService service;
 
     @GetMapping
-    public ResponseEntity<List<QuizResponse>> getAllQuiz() {
+    public ResponseEntity<List<QuizCompletoDto>> getAllQuiz() {
         return ResponseEntity.ok(service.getAllQuiz());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<QuizResponse> getQuizById(
+    public ResponseEntity<QuizCompletoDto> getQuizById(
             @PathVariable Long id) {
         return ResponseEntity.ok(service.getQuizById(id));
     }
 
     @PostMapping
-    public ResponseEntity<QuizResponse> criarQuiz(
+    public ResponseEntity<QuizCompletoDto> criarQuiz(
             @RequestBody QuizRequest request,
             UriComponentsBuilder uriBuilder) {
-        QuizResponse quiz = service.criarQuiz(request);
+        QuizCompletoDto quiz = service.criarQuiz(request);
 
         URI uri = uriBuilder.path("/quiz/{id}")
                 .buildAndExpand(quiz.getId()).toUri();
@@ -40,5 +40,14 @@ public class QuizController {
         return ResponseEntity
                 .created(uri)
                 .body(quiz);
+    }
+
+    @PutMapping
+    public ResponseEntity<QuizCompletoDto> atualizarQuiz(
+            @RequestBody QuizCompletoDto request
+    ) {
+        QuizCompletoDto quiz = service.atualizarQuiz(request);
+
+        return ResponseEntity.ok(quiz);
     }
 }
