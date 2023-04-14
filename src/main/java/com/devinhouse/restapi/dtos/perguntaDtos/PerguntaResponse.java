@@ -1,12 +1,6 @@
-package com.devinhouse.restapi.models;
+package com.devinhouse.restapi.dtos.perguntaDtos;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "perguntas")
-public class Pergunta {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PerguntaResponse {
     private Long id;
     private String titulo;
     private String texto;
