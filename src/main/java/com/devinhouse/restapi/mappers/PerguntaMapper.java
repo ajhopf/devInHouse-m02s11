@@ -9,7 +9,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface PerguntaMapper {
-    Pergunta map(PerguntaResponse source);
     PerguntaResponse map(Pergunta source);
     Pergunta map(PerguntaRequest source);
     List<PerguntaResponse> map(List<Pergunta> source);
