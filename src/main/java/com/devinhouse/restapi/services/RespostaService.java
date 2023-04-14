@@ -1,6 +1,6 @@
 package com.devinhouse.restapi.services;
 
-import com.devinhouse.restapi.dtos.perguntaDtos.PerguntaGetRequest;
+import com.devinhouse.restapi.dtos.respostaDtos.RespostaGetRequest;
 import com.devinhouse.restapi.dtos.respostaDtos.RespostaRequest;
 import com.devinhouse.restapi.dtos.respostaDtos.RespostaResponse;
 import com.devinhouse.restapi.mappers.RespostaMapper;
@@ -19,7 +19,7 @@ public class RespostaService {
     RespostaMapper mapper;
 
     public List<RespostaResponse> getAllRespostas(
-            PerguntaGetRequest requestParams
+            RespostaGetRequest requestParams
     ) {
         if (requestParams.getId_pergunta() == null) {
             return mapper.map(repository.findAll());

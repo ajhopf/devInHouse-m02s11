@@ -1,5 +1,6 @@
 package com.devinhouse.restapi.services;
 
+import com.devinhouse.restapi.dtos.perguntaDtos.PerguntaGetRequest;
 import com.devinhouse.restapi.dtos.perguntaDtos.PerguntaRequest;
 import com.devinhouse.restapi.dtos.perguntaDtos.PerguntaResponse;
 import com.devinhouse.restapi.mappers.PerguntaMapper;
@@ -18,9 +19,14 @@ public class PerguntaService {
     @Autowired
     private PerguntaMapper mapper;
 
-    public List<PerguntaResponse> getPerguntas() {
-
-        return mapper.map(repository.findAll());
+    public List<PerguntaResponse> getPerguntas(
+            PerguntaGetRequest requestParams
+    ) {
+        if (requestParams.getId_quiz() == null) {
+            return mapper.map(repository.findAll());
+        } else {
+            return mapper.map(repository.findById_quiz(requestParams.getId_quiz()));
+        }
     }
 
     public PerguntaResponse getPerguntaById(Long id) {

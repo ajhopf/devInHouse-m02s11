@@ -1,5 +1,6 @@
 package com.devinhouse.restapi.controllers;
 
+import com.devinhouse.restapi.dtos.perguntaDtos.PerguntaGetRequest;
 import com.devinhouse.restapi.dtos.perguntaDtos.PerguntaRequest;
 import com.devinhouse.restapi.dtos.perguntaDtos.PerguntaResponse;
 import com.devinhouse.restapi.services.PerguntaService;
@@ -18,8 +19,9 @@ public class PerguntaController {
     PerguntaService service;
 
     @GetMapping
-    public ResponseEntity<List<PerguntaResponse>> getPerguntas() {
-        return ResponseEntity.ok(service.getPerguntas());
+    public ResponseEntity<List<PerguntaResponse>> getPerguntas
+            (PerguntaGetRequest requestParams) {
+        return ResponseEntity.ok(service.getPerguntas(requestParams));
     }
 
     @GetMapping("/{id}")
