@@ -1,8 +1,8 @@
 package com.devinhouse.restapi.controllers;
 
+import com.devinhouse.restapi.dtos.perguntaDtos.PerguntaCompletoDto;
 import com.devinhouse.restapi.dtos.perguntaDtos.PerguntaGetRequest;
 import com.devinhouse.restapi.dtos.perguntaDtos.PerguntaRequest;
-import com.devinhouse.restapi.dtos.perguntaDtos.PerguntaResponse;
 import com.devinhouse.restapi.services.PerguntaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,22 +19,22 @@ public class PerguntaController {
     PerguntaService service;
 
     @GetMapping
-    public ResponseEntity<List<PerguntaResponse>> getPerguntas
+    public ResponseEntity<List<PerguntaCompletoDto>> getPerguntas
             (PerguntaGetRequest requestParams) {
         return ResponseEntity.ok(service.getPerguntas(requestParams));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PerguntaResponse> getPerguntaById(
+    public ResponseEntity<PerguntaCompletoDto> getPerguntaById(
             @PathVariable Long id) {
         return ResponseEntity.ok(service.getPerguntaById(id));
     }
 
     @PostMapping
-    public ResponseEntity<PerguntaResponse> criarPergunta(
+    public ResponseEntity<PerguntaCompletoDto> criarPergunta(
             @RequestBody PerguntaRequest request,
             UriComponentsBuilder uriBuilder) {
-        PerguntaResponse pergunta = service.criarPergunta(request);
+        PerguntaCompletoDto pergunta = service.criarPergunta(request);
 
         URI uri = uriBuilder.path("/perguntas/{id}")
                 .buildAndExpand(pergunta.getId()).toUri();
@@ -42,5 +42,14 @@ public class PerguntaController {
         return ResponseEntity
                 .created(uri)
                 .body(pergunta);
+    }
+
+    @PutMapping
+    public ResponseEntity<PerguntaCompletoDto> atualizarPergunta(
+            @RequestBody PerguntaCompletoDto request
+    ) {
+        PerguntaCompletoDto pegunta = service.atualizarPergunta(request);
+
+        return ResponseEntity.ok(pegunta);
     }
 }
