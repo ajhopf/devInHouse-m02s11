@@ -1,6 +1,6 @@
 package com.devinhouse.restapi.dtos.respostaDtos;
 
-public class RespostaResponse {
+public class RespostaCompletoDto {
     private Long id;
     private String texto;
     private Long id_pergunta;

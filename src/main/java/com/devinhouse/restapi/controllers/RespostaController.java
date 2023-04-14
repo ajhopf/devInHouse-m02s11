@@ -1,8 +1,8 @@
 package com.devinhouse.restapi.controllers;
 
+import com.devinhouse.restapi.dtos.respostaDtos.RespostaCompletoDto;
 import com.devinhouse.restapi.dtos.respostaDtos.RespostaGetRequest;
 import com.devinhouse.restapi.dtos.respostaDtos.RespostaRequest;
-import com.devinhouse.restapi.dtos.respostaDtos.RespostaResponse;
 import com.devinhouse.restapi.services.RespostaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,22 +19,22 @@ public class RespostaController {
     RespostaService service;
 
     @GetMapping
-    public ResponseEntity<List<RespostaResponse>> getAllRespostas(
+    public ResponseEntity<List<RespostaCompletoDto>> getAllRespostas(
             RespostaGetRequest requestParams
     ) {
         return ResponseEntity.ok(service.getAllRespostas(requestParams));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RespostaResponse> getRespostaById(@PathVariable Long id) {
+    public ResponseEntity<RespostaCompletoDto> getRespostaById(@PathVariable Long id) {
         return ResponseEntity.ok(service.getRespostaById(id));
     }
 
     @PostMapping
-    public ResponseEntity<RespostaResponse> criarResposta(
+    public ResponseEntity<RespostaCompletoDto> criarResposta(
             @RequestBody RespostaRequest request,
             UriComponentsBuilder uriBuilder) {
-        RespostaResponse resposta = service.criarResposta(request);
+        RespostaCompletoDto resposta = service.criarResposta(request);
 
         URI uri = uriBuilder.path("/respostas/{id}")
                 .buildAndExpand(resposta.getId()).toUri();
@@ -42,5 +42,14 @@ public class RespostaController {
         return ResponseEntity
                 .created(uri)
                 .body(resposta);
+    }
+
+    @PutMapping
+    public ResponseEntity<RespostaCompletoDto> atualizarResposta(
+            @RequestBody RespostaCompletoDto request
+    ) {
+        RespostaCompletoDto resposta = service.atualizarResposta(request);
+
+        return ResponseEntity.ok(resposta);
     }
 }
