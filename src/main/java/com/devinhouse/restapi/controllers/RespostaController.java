@@ -52,4 +52,13 @@ public class RespostaController {
 
         return ResponseEntity.ok(resposta);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarReposta(
+            @PathVariable Long id
+    ) {
+        service.deletarResposta(id);
+
+        return ResponseEntity.noContent().build();
+    }
 }

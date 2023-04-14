@@ -57,4 +57,11 @@ public class RespostaService {
 
         return mapper.map(resposta);
     }
+
+    public void deletarResposta(Long id) {
+        repository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
+
+        repository.deleteById(id);
+    }
 }

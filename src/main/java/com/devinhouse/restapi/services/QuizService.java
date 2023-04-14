@@ -50,4 +50,10 @@ public class QuizService {
         return mapper.map(quiz);
     }
 
+    public void deletarQuiz(Long id) {
+        repository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
+
+        repository.deleteById(id);
+    }
 }

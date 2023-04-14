@@ -58,4 +58,11 @@ public class PerguntaService {
 
         return mapper.map(pergunta);
     }
+
+    public void deletarPergunta(Long id) {
+        repository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
+
+        repository.deleteById(id);
+    }
 }
