@@ -1,5 +1,6 @@
 package com.devinhouse.restapi.controllers;
 
+import com.devinhouse.restapi.dtos.perguntaDtos.PerguntaGetRequest;
 import com.devinhouse.restapi.dtos.respostaDtos.RespostaRequest;
 import com.devinhouse.restapi.dtos.respostaDtos.RespostaResponse;
 import com.devinhouse.restapi.services.RespostaService;
@@ -18,8 +19,10 @@ public class RespostaController {
     RespostaService service;
 
     @GetMapping
-    public ResponseEntity<List<RespostaResponse>> getAllRespostas() {
-        return ResponseEntity.ok(service.getAllRespostas());
+    public ResponseEntity<List<RespostaResponse>> getAllRespostas(
+            PerguntaGetRequest requestParams
+    ) {
+        return ResponseEntity.ok(service.getAllRespostas(requestParams));
     }
 
     @GetMapping("/{id}")
