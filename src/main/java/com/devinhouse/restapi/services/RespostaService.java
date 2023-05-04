@@ -49,7 +49,7 @@ public class RespostaService {
         if (request.getTexto() != null && request.getTexto().length() > 0) {
             resposta.setTexto(request.getTexto());
         }
-        if(request.getId_pergunta() != null) {
+        if (request.getId_pergunta() != null) {
             resposta.setId_pergunta(request.getId_pergunta());
         }
 
